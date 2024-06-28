@@ -28,6 +28,10 @@ const path = {
     images: {
         src: "src/img/*",
         dest: "dist/img/"
+    },
+    fonts: {
+        src: "src/fonts/*",
+        dest: "dist/fonts/"
     }
 }
 
@@ -82,14 +86,20 @@ function img() {
     .pipe(gulp.dest(path.images.dest))
 }
 
+function font() {
+    return gulp.src(path.fonts.src)
+        .pipe(gulp.dest(path.fonts.dest))
+}
+
 function watch() {
     gulp.watch(path.html.src, html)
     gulp.watch(path.styles.src, styles)
     gulp.watch(path.scripts.src, scripts)
     gulp.watch(path.images.src, img)
+    gulp.watch(path.fonts.src, font)
 }
 
-const build = gulp.series(clean, gulp.parallel(html, styles, scripts, img),  watch)
+const build = gulp.series(clean, gulp.parallel(html, styles, scripts, img, font),  watch)
 
 
 exports.html = html
